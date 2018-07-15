@@ -1,6 +1,7 @@
 /**
  * Name: Syed Ahsan Ahmed
  * Github: @AhsanSn
+ * Commands for R.
  **/
 
 > library(dplyr)
@@ -55,6 +56,7 @@
 
 
 // Central Limit Theorem
+// 68-95-99.7 Rule
 
 // get area
 > pnorm(x_value, center, sigma)
@@ -84,15 +86,21 @@ sampling distribution spread =
 > pop_mean <- mean(yrbss$physically_active_7d, na.rm = T)
 
 // calculating standard_deviation
+// na.rm = removes null values
+
 > pop_sd <- sd(yrbss$physically_active_7d, na.rm = T)
+
 > samp_params <- yrbss %>% rep_sample_n(size = 100, reps = 1500, replace = T) %>% 
 + summarise(avgactivity = mean(physically_active_7d, na.rm = T), sigma = sd(physically_active_7d, na.rm = T))
 
-
+// printing variable
 > samp_params
+
 > mean(samp_params$avgactivity)
 > ggplot(samp_params, aes(x = avgactivity)) + geom_histogram(binwidth = 0.01)
 > sd(samp_params$avgactivity)
+
+
 
 
 
