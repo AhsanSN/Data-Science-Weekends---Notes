@@ -1,2 +1,3 @@
 # Data Science Weekends - Notes
-notes
+
+Data Science Weekends lecture notes conducted by PakistanAI at NED University.
