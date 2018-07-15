@@ -1,0 +1,90 @@
+/**
+ * Name: Syed Ahsan Ahmed
+ * Github: @AhsanSn
+ **/
+
+> library(dplyr)
+> library(ggplot2)
+> library(statsr)
+> data(nycflights)
+
+// ggplot
+//aes = aesthatics
+> ggplot(data = nycflights, aes(x= dep_delay)) +geom_histogram()
+
+// mean
+> nycflights %>% summarise(mean_dd = mean(dep_delay))
+
+// median
+> nycflights %>% summarise(mean_dd = median(dep_delay))
+
+// boxplot
+> ggplot(data = nycflights, aes(x="",y= dep_delay)) +geom_boxplot()
+
+// comparision between months
+> ggplot(data = nycflights, aes(x=factor(month),y= dep_delay)) +geom_boxplot()
+
+// mean of each month [piping]
+> nycflights %>% group_by(month) %>% summarise(median_dd = mean(dep_delay)) %>% arrange(desc(median_dd))
+
+// including limits for outliers
+> ggplot(data = nycflights, aes(x=factor(month),y= dep_delay)) +geom_boxplot() + ylim(c(0,500))
+
+// all flight delays and the number of their occurances
+> ggplot(nycflights, aes(x = arr_delay)) + geom_histogram(binwidth = 1)
+
+// median of all arrival delays
+> nycflights %>% summarise(median_ad = median(arr_delay))
+
+// relationship between avg_speed and distance. shows log
+> ggplot(nycflights, aes(x = distance, y = avg_speed)) + geom_point()
+
+// if-conditioning (if in-time or not)
+> nycflights <- nycflights %>% mutate(dep_type = ifelse(dep_delay<5, 'on-time', 'delay'))
+> View(nycflights)
+
+// mean of all 'on-time' flights for each month
+> nycflights %>% group_by(month) %>% summarise(ot_dep_rate = sum(dep_type == 'on-time')/n()) %>% arrange(desc(ot_dep_rate)) 
+
+// barplot - dep_type comparision of all airports(origin) (3), dep_type={'delay', 'on-time'}
+> ggplot(nycflights, aes(x = origin, fill = dep_type)) + geom_bar()
+
+
+
+
+
+
+// Central Limit Theorem
+
+// get area
+> pnorm(x_value, center, sigma)
+> pnorm(percentile, mean , standard_deviation)
+> pnorm(1800, 1500, 300)
+
+// get area between two numbers
+> pnorm(1800, 1500, 300) - pnorm(1200, 1500, 300)
+
+> qnorm(percentile, mean , standard_deviation)
+
+sampling distribution spread = 
+
+// creating 2 variables
+> nosim <-1000
+> n <- 30
+> sd(rowMeans(matrix(rnorm(nosim*n), nrow = nosim)))
+
+> library(openintro)
+> library(statsr)
+> data('yrbss')
+> pop_mean <- mean(yrbss$physically_active_7d, na.rm = T)
+> pop_sd <- sd(yrbss$physically_active_7d, na.rm = T)
+> samp_params <- yrbss %>% rep_sample_n(size = 100, reps = 1500, replace = T) %>% 
++ summarise(avgactivity = mean(physically_active_7d, na.rm = T), sigma = sd(physically_active_7d, na.rm = T))
+> 
+> samp_params
+> mean(samp_params$avgactivity)
+> ggplot(samp_params, aes(x = avgactivity)) + geom_histogram(binwidth = 0.01)
+> sd(samp_params$avgactivity)
+
+
+
