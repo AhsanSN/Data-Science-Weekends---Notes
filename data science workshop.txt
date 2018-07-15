@@ -73,14 +73,22 @@ sampling distribution spread =
 > n <- 30
 > sd(rowMeans(matrix(rnorm(nosim*n), nrow = nosim)))
 
+// importing libraries
 > library(openintro)
 > library(statsr)
+
+// importing data
 > data('yrbss')
+
+// calculating mean
 > pop_mean <- mean(yrbss$physically_active_7d, na.rm = T)
+
+// calculating standard_deviation
 > pop_sd <- sd(yrbss$physically_active_7d, na.rm = T)
 > samp_params <- yrbss %>% rep_sample_n(size = 100, reps = 1500, replace = T) %>% 
 + summarise(avgactivity = mean(physically_active_7d, na.rm = T), sigma = sd(physically_active_7d, na.rm = T))
-> 
+
+
 > samp_params
 > mean(samp_params$avgactivity)
 > ggplot(samp_params, aes(x = avgactivity)) + geom_histogram(binwidth = 0.01)
