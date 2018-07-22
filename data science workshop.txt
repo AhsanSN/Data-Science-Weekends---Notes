@@ -108,4 +108,6 @@ sampling distribution spread =
 > sd(mtcars$mpg)
 > nrow(mtcars)
 
+> mean(mtcars$mpg)+qnorm(0.975)*sd(mtcars$mpg)/sqrt(nrow(mtcars))
+
 
