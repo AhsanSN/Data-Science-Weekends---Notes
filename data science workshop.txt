@@ -101,6 +101,11 @@ sampling distribution spread =
 > sd(samp_params$avgactivity)
 
 
+//day 3
 
+> data(mtcars)
+> mean(mtcars$mpg)
+> sd(mtcars$mpg)
+> nrow(mtcars)
 
 
